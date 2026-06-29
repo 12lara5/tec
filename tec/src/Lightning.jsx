@@ -1,9 +1,19 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import './Lightning.css';
 
-// Changed default hue to 45 (Yellow) to match your firm's colors.
 const Lightning = ({ hue = 45, xOffset = 0, speed = 1, intensity = 1.5, size = 1 }) => {
   const canvasRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleScreenCheck = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleScreenCheck(); // Pokreni odmah
+    window.addEventListener('resize', handleScreenCheck);
+    return () => window.removeEventListener('resize', handleScreenCheck);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -98,7 +108,6 @@ const Lightning = ({ hue = 45, xOffset = 0, speed = 1, intensity = 1.5, size = 1
           uv += 2.0 * fbm(uv * uSize + 0.8 * iTime * uSpeed) - 1.0;
           
           float dist = abs(uv.x);
-          // HSV color logic - uHue dynamically colors the lightning
           vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.8, 0.9)); 
           vec3 col = baseColor * pow(mix(0.0, 0.07, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
           col = pow(col, vec3(1.0));
@@ -164,8 +173,13 @@ const Lightning = ({ hue = 45, xOffset = 0, speed = 1, intensity = 1.5, size = 1
       gl.uniform1f(uHueLocation, hue);
       gl.uniform1f(uXOffsetLocation, xOffset);
       gl.uniform1f(uSpeedLocation, speed);
-      gl.uniform1f(uIntensityLocation, intensity);
-      gl.uniform1f(uSizeLocation, size);
+      
+      const finalIntensity = isMobile ? intensity * 0.4 : intensity; 
+      const finalSize = isMobile ? size * 0.6 : size;
+
+      gl.uniform1f(uIntensityLocation, finalIntensity);
+      gl.uniform1f(uSizeLocation, finalSize);
+      
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       animationFrameId = requestAnimationFrame(render);
     };
@@ -175,7 +189,7 @@ const Lightning = ({ hue = 45, xOffset = 0, speed = 1, intensity = 1.5, size = 1
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [hue, xOffset, speed, intensity, size]);
+  }, [hue, xOffset, speed, intensity, size, isMobile]); 
 
   return <canvas ref={canvasRef} className="lightning-container" />;
 };
