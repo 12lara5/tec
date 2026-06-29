@@ -90,8 +90,8 @@ export default function DomeGallery({
   enlargeTransitionMs = DEFAULTS.enlargeTransitionMs,
   segments = DEFAULTS.segments,
   dragDampening = 2,
-  openedImageWidth = '250px',
-  openedImageHeight = '350px',
+  openedImageWidth = 'min(90vw, 1000px)',
+  openedImageHeight = 'min(85vh, 1400px)',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
   grayscale = true

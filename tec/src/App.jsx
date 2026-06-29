@@ -5,7 +5,7 @@ import ContactForm from './ContactForm';
 import ScrollVelocity from './ScrollVelocity';
 import './App.css';
 
-const galleryImages = Array.from({ length: 9 }, (_, i) => ({
+const galleryImages = Array.from({ length: 22 }, (_, i) => ({
   src: `/images/${i + 1}.webp`,
   alt: `TEC projekt ${i + 1}`
 }));
@@ -43,8 +43,7 @@ export default function App() {
               <span className="hero-accent">kojima možete vjerovati</span>
             </h1>
             <p className="hero-description">
-              Profesionalna ugradnja, održavanje i popravak 
-              elektroinstalacija.
+              Elektroinstalacijski radovi za hotele, industrijska postrojenja, javne objekte i infrastrukturu na području Dalmacije.
             </p>
             <div className="hero-actions">
               <a href="#kontakt" className="btn-primary">Zatražite ponudu</a>
@@ -74,6 +73,16 @@ export default function App() {
         </div>
       </section>
 
+      {/* ─── Projects Marquee ─── */}
+      <div className="marquee-wrapper">
+        <ScrollVelocity
+          texts={[projectsRow1, projectsRow2]}
+          velocity={80}
+          numCopies={4}
+          parallaxStyle={{ margin: 0, padding: 0 }}
+        />
+      </div>
+
       {/* ─── About ─── */}
       <section id="o-nama" className="about-section">
         <div className="section-container">
@@ -84,7 +93,7 @@ export default function App() {
               <p className="about-description">
                 Dugogodišnje iskustvo u elektroinstalacijskim radovima, 
                 TEC je pouzdani partner za stanovnike i tvrtke na području 
-                Šibenika i šibenske županije. Svaki projekt izvodimo prema 
+                Šibenika i Šibensko-kninske županije. Svaki projekt izvodimo prema 
                 najvišim standardima sigurnosti i kvalitete.
               </p>
               <div className="about-stats">
@@ -110,7 +119,7 @@ export default function App() {
                 <span className="value-marker"></span>
                 <div>
                   <h4>Transparentne cijene</h4>
-                  <p>Detaljne ponude bez skrivenih troškova — znate što plaćate prije početka radova.</p>
+                  <p>Detaljne ponude bez skrivenih troškova. Znate što plaćate prije početka radova.</p>
                 </div>
               </div>
               <div className="value-item">
@@ -123,17 +132,7 @@ export default function App() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ─── Projects Marquee ─── */}
-      <div className="marquee-wrapper">
-        <ScrollVelocity
-          texts={[projectsRow1, projectsRow2]}
-          velocity={80}
-          numCopies={4}
-          parallaxStyle={{ margin: 0, padding: 0 }}
-        />
-      </div>
+      </section> 
 
       {/* ─── Contact ─── */}
       <section id="kontakt" className="contact-section">
