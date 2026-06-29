@@ -1,9 +1,16 @@
 .lightning-container {
   width: 100%;
   height: 100%;
-  position: absolute; /* Ensures it can layer behind or over other elements */
+  position: absolute;
   top: 0;
   left: 0;
-  pointer-events: none; /* Prevents the bolt from blocking clicks on buttons below it */
+  pointer-events: none;
   z-index: 1;
+  transition: opacity 0.3s ease;
 }
+
+/* @media (max-width: 480px) {
+  .lightning-container {
+    display: none !important;
+  }
+} */
